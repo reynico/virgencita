@@ -9,10 +9,15 @@ reader = geoip2.database.Reader('geo.mmdb')
 @app.route('/')
 def show_index():
     client_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    client_response = reader.city(client_ip)
+    try:
+    	client_response = reader.city(client_ip)
+    	lat = str(client_response.location.latitude)
+    	lon = str(client_response.location.longitude)
+    except:
+        lat = '-34.6037'
+        lon = '-58.3816'
+        pass
     apiKey = os.environ['FORECAST_API_KEY']
-    lat = str(client_response.location.latitude)
-    lon = str(client_response.location.longitude)
     fio = ForecastIO.ForecastIO(apiKey, latitude=lat, longitude=lon)
     current = FIOCurrently.FIOCurrently(fio)
     return render_template("index.html", probabilidad = int(current.precipProbability*100))
