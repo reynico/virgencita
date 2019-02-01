@@ -22,7 +22,7 @@ def show_index():
         pass
     fio = ForecastIO.ForecastIO(apiKey[0], latitude=lat, longitude=lon)
     current = FIOCurrently.FIOCurrently(fio)
-    return render_template("index.html", probabilidad = int(current.precipProbability*100))
+    return render_template("index.html", probabilidad = int(current.humidity*100))
 
 if __name__ == '__main__':
     app.run()
