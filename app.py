@@ -11,7 +11,7 @@ reader = geoip2.database.Reader('geo.mmdb')
 @app.route('/')
 def show_index():
     client_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    apiKey = random.sample(set([os.environ['FORECAST_API_KEY_1'], os.environ['FORECAST_API_KEY_2']]), 1)
+    apiKey = random.sample(set([os.environ['FORECAST_API_KEY_1'], os.environ['FORECAST_API_KEY_2'], os.environ['FORECAST_API_KEY_3']]), 1)
     try:
     	client_response = reader.city(client_ip)
     	lat = str(client_response.location.latitude)
