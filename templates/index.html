@@ -1,0 +1,17 @@
+<head>
+    <title>Virgencita del clima</title>
+</head>
+<body style="text-align:center;">
+    <img id="virgencita" src="static/celeste.jpg">
+    <h1 id="porcentaje"></h1>
+</body>
+<script>
+i = {{ probabilidad }};
+(function (i) {
+    text = "Probabilidad de precipitaciones: "+ i + "%";
+    value = i + "deg";
+    document.getElementById("porcentaje").innerHTML = text;
+    document.getElementById("virgencita").style.filter = "hue-rotate("+ value +")";
+})
+(i);
+</script>
