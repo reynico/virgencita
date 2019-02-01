@@ -6,12 +6,15 @@
     <h1 id="porcentaje"></h1>
 </body>
 <script>
-i = {{ probabilidad }};
-(function (i) {
-    text = "Probabilidad de precipitaciones: "+ i + "%";
-    value = i + "deg";
-    document.getElementById("porcentaje").innerHTML = text;
-    document.getElementById("virgencita").style.filter = "hue-rotate("+ value +")";
-})
-(i);
+prob = {{ probabilidad }};
+for (i = 0; i <= prob; i++) {
+	(function (i) {
+        setTimeout(function () {
+        text = "Probabilidad de precipitaciones: "+ i + "%";
+        value = i + "deg";
+        document.getElementById("porcentaje").innerHTML = text;
+        document.getElementById("virgencita").style.filter = "hue-rotate("+ value +")";}, 30*i);
+    })
+    (i);
+};
 </script>
