@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, url_for
 from forecastiopy import *
 import geoip2.database
+import random
 import os
+
 
 app = Flask(__name__)
 reader = geoip2.database.Reader('geo.mmdb')
@@ -9,6 +11,7 @@ reader = geoip2.database.Reader('geo.mmdb')
 @app.route('/')
 def show_index():
     client_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+    apiKey = random.sample(set([os.environ['FORECAST_API_KEY_1'], os.environ['FORECAST_API_KEY_2']]), 1)
     try:
     	client_response = reader.city(client_ip)
     	lat = str(client_response.location.latitude)
@@ -17,8 +20,7 @@ def show_index():
         lat = '-34.6037'
         lon = '-58.3816'
         pass
-    apiKey = os.environ['FORECAST_API_KEY']
-    fio = ForecastIO.ForecastIO(apiKey, latitude=lat, longitude=lon)
+    fio = ForecastIO.ForecastIO(apiKey[0], latitude=lat, longitude=lon)
     current = FIOCurrently.FIOCurrently(fio)
     return render_template("index.html", probabilidad = int(current.precipProbability*100))
 
