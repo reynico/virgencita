@@ -6,8 +6,10 @@ import geoip2.database
 import random
 import os
 
-requests_cache.install_cache('virgencita', expire_after=1800)
+host = os.environ.get('APP_HOST', '127.0.0.1')
+port = os.environ.get('APP_PORT', 5000)
 
+requests_cache.install_cache('virgencita', expire_after=1800)
 
 def getLocation(client_ip):
     reader = geoip2.database.Reader('geo.mmdb')
@@ -52,4 +54,4 @@ def show_index():
     return render_template("index.html", analytics_id=getAnalyticsKey(), probabilidad=getHumidity(client_ip))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host, port)
