@@ -41,7 +41,7 @@ def getHumidity(client_ip):
     print('Is cached: ' + str(r.from_cache), file=sys.stdout)
     sys.stdout.flush()
     data = r.json()
-    return(int(data['currently']['humidity']*100))
+    return((int((data['currently']['humidity']*100))+int(data['currently']['precipProbability']*100))/2)
 
 app = Flask(__name__)
 

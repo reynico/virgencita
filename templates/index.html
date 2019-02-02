@@ -31,7 +31,7 @@ function v(){
     for (i = 0; i <= prob; i++) {
 	(function (i) {
         setTimeout(function () {
-        text = "Probabilidad de precipitaciones: "+ i + "%";
+        text = "El souvenir del clima dice: "+ i + "% de probabilidad de precipitaciones";
         value = i + 20 + "deg";
         document.getElementById("porcentaje").innerHTML = text;
         document.getElementById("amuleto").style.filter = "hue-rotate("+ value +")";}, 30*i);
