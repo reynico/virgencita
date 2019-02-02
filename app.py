@@ -33,15 +33,20 @@ def getApiKey():
 def getAnalyticsKey():
     return(os.environ['FORECAST_ANALYTICS_KEY'])
 
-
-def getHumidity(client_ip):
+def getForecast(client_ip):
     coords = getLocation(client_ip)
     r = requests.get('https://api.darksky.net/forecast/%s/%s,%s' %
                      (getApiKey(), coords[0], coords[1]))
     print('Is cached: ' + str(r.from_cache), file=sys.stdout)
     sys.stdout.flush()
     data = r.json()
-    return((int((data['currently']['humidity']*100))+int(data['currently']['precipProbability']*100))/2)
+    return(data)
+
+def getHumidity(forecast):
+    return((int((forecast['currently']['humidity']*100))+int(forecast['currently']['precipProbability']*100))/2)
+
+def getCity(forecast):
+    return(str(forecast['timezone']))
 
 app = Flask(__name__)
 
@@ -51,7 +56,8 @@ def show_index():
     client_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
     print('Client IP: ' + str(client_ip), file=sys.stdout)
     sys.stdout.flush()
-    return render_template("index.html", analytics_id=getAnalyticsKey(), probabilidad=getHumidity(client_ip))
+    forecast = getForecast(client_ip)
+    return render_template("index.html", analytics_id=getAnalyticsKey(), probabilidad=getHumidity(forecast), geocity=getCity(forecast))
 
 if __name__ == '__main__':
     app.run(host, port)

@@ -11,10 +11,12 @@
     gtag('config', '{{ analytics_id }}');
     </script>
     <title>Virgencita del clima</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css" media="screen" />
 </head>
 
 <body style="text-align:center;" onload="displayImg();">
     <div id="img-div"></div>
+    <div class="signpost"><h2 id="chapita"></h2></div>
     <h1 id="porcentaje"></h1>
     <p><a href="https://github.com/reynico/virgencita">Made with love by @jabreu, @gnasr and @reynico</a></p>
 </body>
@@ -27,6 +29,8 @@ function displayImg(){
 };
 
 prob = {{ probabilidad }};
+city = "{{ geocity }}";
+
 function v(){
     for (i = 0; i <= prob; i++) {
 	(function (i) {
@@ -38,5 +42,6 @@ function v(){
     })
     (i);
     };
+    document.getElementById("chapita").innerHTML = String(city);
 };
 </script>
