@@ -2,22 +2,19 @@
     <title>Virgencita del clima</title>
 </head>
 <body style="text-align:center;">
-    <img id="virgencita" src="static/celeste.jpg" onload="v()">
+    <img id="virgencita" src="static/celeste.jpg">
     <h1 id="porcentaje"></h1>
-    <p><a href="https://github.com/reynico/virgencita">Made with love by @gnasr and @reynico</a></p>
 </body>
 <script>
 prob = {{ probabilidad }};
-function v(){
-    for (i = 0; i <= prob; i++) {
+for (i = 0; i <= prob; i++) {
 	(function (i) {
         setTimeout(function () {
         text = "Probabilidad de precipitaciones: "+ i + "%";
-        value = i + 20 + "deg";
+        value = i + "deg";
         document.getElementById("porcentaje").innerHTML = text;
         document.getElementById("virgencita").style.filter = "hue-rotate("+ value +")";}, 30*i);
     })
     (i);
-    };
 };
 </script>
