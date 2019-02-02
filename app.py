@@ -28,7 +28,7 @@ def getApiKey():
 def getHumidity(client_ip):
     coords = getLocation(client_ip)
     r = requests.get('https://api.darksky.net/forecast/%s/%s,%s' % 
-        (getApiKey()[0], coords[0],coords[1]))
+        (getApiKey(), coords[0],coords[1]))
     print('Is cached: ' + str(r.from_cache), file=sys.stdout)
     sys.stdout.flush()
     data = r.json()
