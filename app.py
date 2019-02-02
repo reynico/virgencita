@@ -23,11 +23,7 @@ def getLocation(client_ip):
     return(lat,lon)
 
 def getApiKey():
-    return(random.sample(set([
-        os.environ['FORECAST_API_KEY_1'], 
-        os.environ['FORECAST_API_KEY_2'], 
-        os.environ['FORECAST_API_KEY_3']]), 
-    1))
+    return(os.environ['FORECAST_API_KEY_1'])
 
 def getHumidity(client_ip):
     coords = getLocation(client_ip)
