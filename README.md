@@ -7,3 +7,11 @@
 - Set your `FORECAST_ANALYTICS_KEY` to have metrics at Google Analytics
 - Install the Python requirements `pip3 install -r requirements.txt`
 - Run with `python3 app.py`
+
+### How to test locally
+Requires 18.02.0+
+- Edit `docker-compose.yml` with your keys
+```
+docker-compose build
+docker-compose up
+```
