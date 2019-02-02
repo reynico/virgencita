@@ -1,21 +1,31 @@
 <head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_id }}"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_id }}"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', '{{ analytics_id }}');
-</script>
+    gtag('config', '{{ analytics_id }}');
+    </script>
     <title>Virgencita del clima</title>
 </head>
-<body style="text-align:center;">
-    <img id="virgencita" src="static/celeste.jpg" onload="v()">
+
+<body style="text-align:center;" onload="displayImg();">
+    <div id="img-div"></div>
     <h1 id="porcentaje"></h1>
-    <p><a href="https://github.com/reynico/virgencita">Made with love by @gnasr and @reynico</a></p>
+    <p><a href="https://github.com/reynico/virgencita">Made with love by @jabreu, @gnasr and @reynico</a></p>
 </body>
+
 <script>
+function displayImg(){
+    var imagesArray = ["fragata.png", "hipocampo.png", "virgencita.png", "lobo_marino.png"];
+    var rand = imagesArray[Math.floor(Math.random() * imagesArray.length)];
+    document.getElementById("img-div").innerHTML = '<img id="amuleto" src="static/' + rand + '" onload="v()" onclick="displayImg()">';
+};
+
 prob = {{ probabilidad }};
 function v(){
     for (i = 0; i <= prob; i++) {
@@ -24,7 +34,7 @@ function v(){
         text = "Probabilidad de precipitaciones: "+ i + "%";
         value = i + 20 + "deg";
         document.getElementById("porcentaje").innerHTML = text;
-        document.getElementById("virgencita").style.filter = "hue-rotate("+ value +")";}, 30*i);
+        document.getElementById("amuleto").style.filter = "hue-rotate("+ value +")";}, 30*i);
     })
     (i);
     };
