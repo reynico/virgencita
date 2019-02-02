@@ -16,9 +16,7 @@
 
 <body style="text-align:center;" onload="displayImg();">
     <div id="img-div"></div>
-    <div class="signpost">
-    <h2 id="chapita"></h2>
-    </div>
+    <div class="signpost"><h2 id="chapita"></h2></div>
     <h1 id="porcentaje"></h1>
     <p><a href="https://github.com/reynico/virgencita">Made with love by @jabreu, @gnasr and @reynico</a></p>
 </body>
@@ -31,7 +29,7 @@ function displayImg(){
 };
 
 prob = {{ probabilidad }};
-city = {{ ciudad }};
+city = "{{ geocity }}";
 
 function v(){
     for (i = 0; i <= prob; i++) {
@@ -44,7 +42,6 @@ function v(){
     })
     (i);
     };
-
-    document.getElementById("chapita").innerHTML = city;
+    document.getElementById("chapita").innerHTML = String(city);
 };
 </script>

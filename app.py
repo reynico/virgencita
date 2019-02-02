@@ -57,7 +57,7 @@ def show_index():
     print('Client IP: ' + str(client_ip), file=sys.stdout)
     sys.stdout.flush()
     forecast = getForecast(client_ip)
-    return render_template("index.html", analytics_id=getAnalyticsKey(), probabilidad=getHumidity(forecast), ciudad=getCity(forecast))
+    return render_template("index.html", analytics_id=getAnalyticsKey(), probabilidad=getHumidity(forecast), geocity=getCity(forecast))
 
 if __name__ == '__main__':
     app.run(host, port)
