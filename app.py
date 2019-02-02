@@ -28,6 +28,10 @@ def getApiKey():
     return(os.environ['FORECAST_API_KEY_1'])
 
 
+def getAnalyticsKey():
+    return(os.environ['FORECAST_ANALYTICS_KEY'])
+
+
 def getHumidity(client_ip):
     coords = getLocation(client_ip)
     r = requests.get('https://api.darksky.net/forecast/%s/%s,%s' %
@@ -45,7 +49,7 @@ def show_index():
     client_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
     print('Client IP: ' + str(client_ip), file=sys.stdout)
     sys.stdout.flush()
-    return render_template("index.html", probabilidad=getHumidity(client_ip))
+    return render_template("index.html", analytics_id=getAnalyticsKey(), probabilidad=getHumidity(client_ip))
 
 if __name__ == '__main__':
     app.run()
