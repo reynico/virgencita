@@ -1,3 +1,4 @@
 .vscode/
 static/index.html
 *.mmdb
+virgencita.sqlite
