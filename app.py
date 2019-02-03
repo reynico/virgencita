@@ -32,7 +32,7 @@ def getLocation(client_ip):
 def getCity(client_ip):
     try:
         client_response = reader.city(client_ip)
-        city = client_response.city.name
+        city = str(client_response.city.name)
     except:
         city = 'Buenos Aires'
         pass
