@@ -3,6 +3,7 @@ import sys
 import requests
 import requests_cache
 import geoip2.database
+import logging
 import random
 import os
 
@@ -11,8 +12,10 @@ port = os.environ.get('APP_PORT', 5000)
 
 requests_cache.install_cache('virgencita', expire_after=1800)
 
+reader = geoip2.database.Reader('geo.mmdb')
+
+
 def getLocation(client_ip):
-    reader = geoip2.database.Reader('geo.mmdb')
     try:
         client_response = reader.city(client_ip)
         lat = str(round(client_response.location.latitude, 2))
@@ -26,6 +29,18 @@ def getLocation(client_ip):
     return(lat, lon)
 
 
+def getCity(client_ip):
+    try:
+        client_response = reader.city(client_ip)
+        city = str(client_response.city.name)
+    except:
+        city = 'Buenos Aires'
+        pass
+    print('City: ' + city, file=sys.stdout)
+    sys.stdout.flush()
+    return(city)
+
+
 def getApiKey():
     return(os.environ['FORECAST_API_KEY_1'])
 
@@ -33,22 +48,28 @@ def getApiKey():
 def getAnalyticsKey():
     return(os.environ['FORECAST_ANALYTICS_KEY'])
 
+
 def getForecast(client_ip):
     coords = getLocation(client_ip)
     r = requests.get('https://api.darksky.net/forecast/%s/%s,%s' %
                      (getApiKey(), coords[0], coords[1]))
-    print('Is cached: ' + str(r.from_cache), file=sys.stdout)
+    print('Is cached: ' + str(r.from_cache) + '\n', file=sys.stdout)
     sys.stdout.flush()
     data = r.json()
     return(data)
 
-def getHumidity(forecast):
-    return((int((forecast['currently']['humidity']*100))+int(forecast['currently']['precipProbability']*100))/2)
 
-def getCity(forecast):
-    return(str(forecast['timezone']))
+def getHumidity(forecast):
+    humidity = int(forecast['currently']['humidity']*100)
+    precipP = int(forecast['currently']['precipProbability']*100)
+    return((humidity+precipP)/2)
 
 app = Flask(__name__)
+
+
+app.logger.disabled = True
+log = logging.getLogger('werkzeug')
+log.disabled = True
 
 
 @app.route('/')
@@ -57,7 +78,9 @@ def show_index():
     print('Client IP: ' + str(client_ip), file=sys.stdout)
     sys.stdout.flush()
     forecast = getForecast(client_ip)
-    return render_template("index.html", analytics_id=getAnalyticsKey(), probabilidad=getHumidity(forecast), geocity=getCity(forecast))
+    return render_template("index.html", analytics_id=getAnalyticsKey(),
+                           probability=getHumidity(forecast),
+                           geocity=getCity(client_ip))
 
 if __name__ == '__main__':
     app.run(host, port)
