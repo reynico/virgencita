@@ -1,5 +1,7 @@
 # Virgencita del tiempo climático
 
+[![Build Status](https://travis-ci.org/reynico/virgencita.svg?branch=master)](https://travis-ci.org/reynico/virgencita)
+
 ### Setup
 - Download [GeoIP city location database](https://dev.maxmind.com/geoip/geoip2/geolite2/)
 - Uncompress and rename to `geo.mmdb`
