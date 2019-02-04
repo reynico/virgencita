@@ -43,11 +43,7 @@ def getApiKey():
 
 
 def getAnalyticsKey():
-    try:
-         analytics_key = os.environ['FORECAST_ANALYTICS_KEY']
-    except BaseException:
-         analytics_key = ''
-    return(analytics_key)
+    return(os.environ['FORECAST_ANALYTICS_KEY'])
 
 
 def getForecast(client_ip):
