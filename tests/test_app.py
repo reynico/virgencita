@@ -1,10 +1,8 @@
 import os
 import tempfile
-
 import pytest
 
 from flask import Flask
-#from virgencita import createApp
 from virgencita import app
 
 @pytest.fixture
@@ -36,6 +34,10 @@ def test_getApiKey():
 
 def test_getAnalyticsKey():
     assert app.getAnalyticsKey() == os.environ['FORECAST_ANALYTICS_KEY']
+
+def test_getAnalyticsnoKey():
+    del os.environ['FORECAST_ANALYTICS_KEY']
+    assert app.getAnalyticsKey() == ''
 
 def test_getLocation():
     lat = '-34.6037'
