@@ -1,0 +1,49 @@
+<head>
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_id }}"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{ analytics_id }}');
+    </script>
+    <title>Virgencita del clima</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css" media="screen" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+</head>
+
+<body style="text-align:center;font-family: 'Montserrat', serif;" onload="displayImg();">
+    <div id="img-div"></div>
+    <div class="signpost"><h2 id="chapita"></h2></div>
+    <h1 id="porcentaje"></h1>
+    <p><a href="https://github.com/reynico/virgencita">Made with <i class="em em-heart"></i> by @jabreu, @gnasr and @reynico</a></p>
+</body>
+
+<script>
+function displayImg(){
+    var imagesArray = ["fragata.png", "hipocampo.png", "virgencita.png", "lobo_marino.png"];
+    var rand = imagesArray[Math.floor(Math.random() * imagesArray.length)];
+    document.getElementById("img-div").innerHTML = '<img id="amuleto" src="static/' + rand + '" onload="v()" onclick="displayImg()">';
+};
+
+prob = "{{ probability }}";
+city = "{{ geocity }}";
+
+function v(){
+    for (i = 0; i <= prob; i++) {
+	(function (i) {
+        setTimeout(function () {
+        text = "El souvenir del clima dice: "+ i + "% de probabilidad de precipitaciones";
+        value = i + 20 + "deg";
+        document.getElementById("porcentaje").innerHTML = text;
+        document.getElementById("amuleto").style.filter = "hue-rotate("+ value +")";}, 30*i);
+    })
+    (i);
+    };
+    document.getElementById("chapita").innerHTML = String(city);
+};
+</script>

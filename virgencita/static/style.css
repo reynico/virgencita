@@ -1,0 +1,62 @@
+#img-div {
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+         -o-animation: fadein 2s; /* Opera < 12.1 */
+            animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.signpost { /* our rectangle */
+  width:450px;
+  height:50px;
+  background-color: #C0C0C0;
+  margin:25px auto;
+  position: relative;
+}
+
+.signpost:after { /*  our pseudo-element */
+  content:"";/* required */
+  position: absolute; /* takes the 'cap' out off flow */
+  top:0; /* stick it to top edge of the sign */
+  left:100%; /* push it way overto the right*/
+  height:0; /* we're doing this with borders remember */
+  width:0; 
+  border-width: 25px;
+  border-style:solid;
+  border-color:#C0C0C0; /* same as bg of our rectangle */
+  /* now we make some of theborders disappear*/
+  border-top-color:transparent;
+  border-bottom-color:transparent;
+  border-right-color:transparent;
+}
