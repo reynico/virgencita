@@ -1,6 +1,5 @@
 import os
 import tempfile
-import geoip2.database
 import pytest
 
 from flask import Flask
@@ -44,5 +43,3 @@ def test_getLocation():
     lat = '-34.6037'
     lon = '-58.3816'
     assert app.getLocation('127.0.0.1') == (lat, lon)
-
-
