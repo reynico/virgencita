@@ -1,7 +1,7 @@
 .PHONY: lint
 lint:
 	@pip install .[lint]
-	@pycodestyle --verbose virgencita/
+	@pycodestyle --verbose src/
 
 .PHONY: test
 test:
