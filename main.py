@@ -1,5 +1,9 @@
-from virgencita import create_app
+from virgencita import app
+import os
+
+host = os.environ.get('APP_HOST', '127.0.0.1')
+port = os.environ.get('APP_PORT', 5000)
 
 if __name__ == '__main__':
-    app = create_app()
-    app.run(host, port)
+    newApp = app.createApp()
+    newApp.run(host, port)

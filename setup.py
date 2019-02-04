@@ -7,7 +7,9 @@ setup(
     name='virgencita',
     version='1.0',
     description='Little virgin',
-    packages=['virgencita'],
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    #packages=['virgencita'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
