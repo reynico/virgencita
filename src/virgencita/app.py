@@ -7,9 +7,6 @@ import logging
 import random
 import os
 
-host = os.environ.get('APP_HOST', '127.0.0.1')
-port = os.environ.get('APP_PORT', 5000)
-
 requests_cache.install_cache('virgencita', expire_after=1800)
 
 reader = geoip2.database.Reader('geo.mmdb')
@@ -20,7 +17,7 @@ def getLocation(client_ip):
         client_response = reader.city(client_ip)
         lat = str(round(client_response.location.latitude, 2))
         lon = str(round(client_response.location.longitude, 2))
-    except:
+    except BaseException:
         lat = '-34.6037'
         lon = '-58.3816'
         pass
@@ -33,7 +30,7 @@ def getCity(client_ip):
     try:
         client_response = reader.city(client_ip)
         city = str(client_response.city.name)
-    except:
+    except BaseException:
         city = 'Buenos Aires'
         pass
     print('City: ' + city, file=sys.stdout)
@@ -64,23 +61,20 @@ def getHumidity(forecast):
     precipP = int(forecast['currently']['precipProbability']*100)
     return((humidity+precipP)/2)
 
-app = Flask(__name__)
 
+def createApp():
+    app = Flask(__name__)
+    app.logger.disabled = True
+    log = logging.getLogger('werkzeug')
+    log.disabled = True
+    @app.route('/')
+    def show_index():
+        client_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+        print('Client IP: ' + str(client_ip), file=sys.stdout)
+        sys.stdout.flush()
+        forecast = getForecast(client_ip)
+        return render_template("index.html", analytics_id=getAnalyticsKey(),
+                               probability=getHumidity(forecast),
+                               geocity=getCity(client_ip))
 
-app.logger.disabled = True
-log = logging.getLogger('werkzeug')
-log.disabled = True
-
-
-@app.route('/')
-def show_index():
-    client_ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    print('Client IP: ' + str(client_ip), file=sys.stdout)
-    sys.stdout.flush()
-    forecast = getForecast(client_ip)
-    return render_template("index.html", analytics_id=getAnalyticsKey(),
-                           probability=getHumidity(forecast),
-                           geocity=getCity(client_ip))
-
-if __name__ == '__main__':
-    app.run(host, port)
+    return app

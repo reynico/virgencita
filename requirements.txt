@@ -1,4 +1,0 @@
-Flask==1.0.2
-geoip2==2.9.0
-requests==2.20.0
-requests-cache==0.4.13
