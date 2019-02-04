@@ -1,2 +1,2 @@
-graft virgencita/templates
-graft virgencita/static
+graft src/virgencita/templates
+graft src/virgencita/static
