@@ -32,10 +32,10 @@ def test_reply(client):
     assert response.data[0:6] == b"<head>"
 
 def test_getApiKey():
-    assert app.getApiKey() == "PUT_KEY"
+    assert app.getApiKey() == os.environ['FORECAST_API_KEY_1']
 
 def test_getAnalyticsKey():
-    assert app.getAnalyticsKey() == "apikey"
+    assert app.getAnalyticsKey() == os.environ['FORECAST_ANALYTICS_KEY']
 
 def test_getLocation():
     lat = '-34.6037'
