@@ -9,7 +9,7 @@
 - Set your `FORECAST_ANALYTICS_KEY` to have metrics at Google Analytics
 - Install the Python requirements python setup.py install
 - Install the Python requirements `pip3 install -r requirements.txt`
-- Run with `python3 app.py`
+- Run with `python3 main.py`
 
 ### How to test locally
 Requires 18.02.0+
