@@ -43,3 +43,11 @@ def test_getLocation():
     lat = '-34.6037'
     lon = '-58.3816'
     assert app.getLocation('127.0.0.1') == (lat, lon)
+
+def test_getExistingLocation():
+    lat = '-34.6'
+    lon = '-58.38'
+    assert app.getLocation('128.90.106.56') == (lat, lon)
+
+def test_getCity():
+    assert app.getCity('128.90.106.56') == 'Buenos Aires'
