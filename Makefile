@@ -1,11 +1,11 @@
 .PHONY: lint
 lint:
-	@pip install .[lint]
+	@pip install -q .[lint]
 	@pycodestyle --verbose src/
 
 .PHONY: test
 test:
-	@pip install .[test]
+	@pip install -q .[test]
 	@tox
 
 .PHONY: install
