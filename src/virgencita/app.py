@@ -63,7 +63,14 @@ def getForecast(client_ip):
 def getHumidity(forecast):
     humidity = int(forecast['currently']['humidity']*100)
     precipP = int(forecast['currently']['precipProbability']*100)
-    return((humidity+precipP)/2)
+    if precipP > 30:
+      total = precipP + (humidity/2)
+      if total <= 100:
+        return(total)
+      else:
+        return(100)
+    else:
+      return((humidity+precipP)/2)
 
 
 def createApp():
